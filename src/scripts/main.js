@@ -10,14 +10,10 @@ for (let i = 0; i < allHeadlines.length; i++) {
       const aText = a.cells[i].textContent.trim();
       const bText = b.cells[i].textContent.trim();
 
-      const aV = isNaN(aText) ? aText : parseFloat(aText.replace(/[$,]/g, ''));
-      const bV = isNaN(bText) ? bText : parseFloat(bText.replace(/[$,]/g, ''));
+      const aV = parseFloat(aText.replace(/[$,]/g, '')) || aText;
+      const bV = parseFloat(bText.replace(/[$,]/g, '')) || bText;
 
-      if (typeof aV === 'number' && typeof bV === 'number') {
-        return aV - bV;
-      } else {
-        return aV.localeCompare(bV);
-      }
+      return aV < bV ? -1 : aV > bV ? 1 : 0;
     });
 
     tBody.innerHTML = '';
